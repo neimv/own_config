@@ -117,15 +117,50 @@ function status_system() {
     cpuName=$(lscpu | grep 'Model name' | cut -f 2 -d ":" | awk '{$1=$1}1')
     cores=$(grep -c ^processor /proc/cpuinfo)
     processors=$(grep ^cpu\\scores /proc/cpuinfo | uniq |  awk '{print $4}')
-    pythonVersion=$(python3 --version 2>&1)
-    golangVersion=$(go version | cut -f 3 -d " ")
-    rustVersion=$(rustc --version)
-    # rustVersion="Hello"
-    nodeVersion=$(npm --version)
+
+    if [[ $(python3 --version) ]]; then
+        pythonVersion=$(python3 --version 2>&1)
+    else
+        pythonVersion="Not found"
+    fi
+
+    if [[ $(go version) ]]; then
+        golangVersion=$(go version | cut -f 3 -d " ")
+    else
+        golangVersion="Not Found"
+    fi
+
+    if [[ $(rustc --version) ]]; then
+        rustVersion=$(rustc --version)
+    else
+        rustVersion="Not Found"
+    fi
+
+    if [[ $(npm --version) ]]; then
+        nodeVersion=$(npm --version)
+    else
+        nodeVersion="Not Found"
+    fi
+
+    if [[ $(gcc --version) ]]; then
+        cVersion=$(gcc --version | grep gcc | awk '{print $3}')
+    else
+        cVersion="Not Found"
+    fi
+
+    if [[ $(docker --version) ]]; then
+        dockerVersion=$(docker --version)
+    else
+        dockerVersion="Not Found"
+    fi
+
+    if [[ $(vim --version) ]]; then
+        vimVersion=$(vim --version | head -1 | cut -d ' ' -f 5)
+    else
+        vimVersion="Not Found"
+    fi
+
     bashVersion=${BASH_VERSION}
-    cVersion=$(gcc --version | grep gcc | awk '{print $3}')
-    dockerVersion=$(docker --version)
-    vimVersion=$(vim --version | head -1 | cut -d ' ' -f 5)
 
     echo -e "${e_blu}          .?77777777777777S.             ${e_clr}| ${eb_cyn}USER: $(echo $USER)${e_clr}"
     echo -e "${e_blu}          777..777777777777S+            ${e_clr}| ${eb_cyn}HOSTNAME: $(hostname -f)${e_clr}"
