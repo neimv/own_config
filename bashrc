@@ -47,38 +47,6 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 
-# Alias
-alias la='ls -lha'                  # show list of files with hidden files
-alias ll='ls -lh'                   # Show list of files with details
-alias gs='git status'               # View Git status.
-alias ga='git add'                  # Add a file to Git.
-alias gaa='git add --all'           # Add all files to Git.
-alias gc='git commit'               # Commit changes to the code.
-alias gl='git log --oneline'        # View the Git log.
-alias gb='git checkout -b'          # Create a new Git branch and move to the new branch at the same time.
-alias gd='git diff'                 # View the difference.
-alias ..='cd ..;pwd'                # Move to the parent folder.
-alias ...='cd ../..;pwd'            # Move up two parent folders.
-alias ....='cd ../../..;pwd'        # Move up three parent folders.
-alias c='clear'                     # Press c to clear the terminal screen.
-alias h='history'                   # Press h to view the bash history.
-alias tree='tree --dirsfirst -F'    # Display the directory structure better.
-alias mkdir='mkdir -p -v'           # Make a directory and all parent directories with verbosity.
-alias python='python3'
-# use only three letter to show calendar
-alias jan='cal -m 01'
-alias feb='cal -m 02'
-alias mar='cal -m 03'
-alias apr='cal -m 04'
-alias may='cal -m 05'
-alias jun='cal -m 06'
-alias jul='cal -m 07'
-alias aug='cal -m 08'
-alias sep='cal -m 09'
-alias oct='cal -m 10'
-alias nov='cal -m 11'
-alias dec='cal -m 12'
-
 ## advanced configs
 # Display the current Git branch in the Bash prompt.
 function git_branch() {
@@ -149,9 +117,10 @@ function status_system() {
     cpuName=$(lscpu | grep 'Model name' | cut -f 2 -d ":" | awk '{$1=$1}1')
     cores=$(grep -c ^processor /proc/cpuinfo)
     processors=$(grep ^cpu\\scores /proc/cpuinfo | uniq |  awk '{print $4}')
-    pythonVersion=$(python --version)
+    pythonVersion=$(python3 --version 2>&1)
     golangVersion=$(go version | cut -f 3 -d " ")
     rustVersion=$(rustc --version)
+    # rustVersion="Hello"
     nodeVersion=$(npm --version)
     bashVersion=${BASH_VERSION}
     cVersion=$(gcc --version | grep gcc | awk '{print $3}')
@@ -186,6 +155,41 @@ function status_system() {
 	printf "\n"
 }
 
+# Cargo run
+. "$HOME/.cargo/env"
+
 status_system
 
 source /etc/profile.d/bash_completion.sh
+# Alias
+alias la='ls -lha'                  # show list of files with hidden files
+alias ll='ls -lh'                   # Show list of files with details
+alias gs='git status'               # View Git status.
+alias ga='git add'                  # Add a file to Git.
+alias gaa='git add --all'           # Add all files to Git.
+alias gc='git commit'               # Commit changes to the code.
+alias gl='git log --oneline'        # View the Git log.
+alias gb='git checkout -b'          # Create a new Git branch and move to the new branch at the same time.
+alias gd='git diff'                 # View the difference.
+alias ..='cd ..;pwd'                # Move to the parent folder.
+alias ...='cd ../..;pwd'            # Move up two parent folders.
+alias ....='cd ../../..;pwd'        # Move up three parent folders.
+alias c='clear'                     # Press c to clear the terminal screen.
+alias r='reset'                     # another clear screen
+alias h='history'                   # Press h to view the bash history.
+alias tree='tree --dirsfirst -F'    # Display the directory structure better.
+alias mkdir='mkdir -p -v'           # Make a directory and all parent directories with verbosity.
+alias python='python3'
+# use only three letter to show calendar
+alias jan='cal -m 01'
+alias feb='cal -m 02'
+alias mar='cal -m 03'
+alias apr='cal -m 04'
+alias may='cal -m 05'
+alias jun='cal -m 06'
+alias jul='cal -m 07'
+alias aug='cal -m 08'
+alias sep='cal -m 09'
+alias oct='cal -m 10'
+alias nov='cal -m 11'
+alias dec='cal -m 12'
